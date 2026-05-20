@@ -105,112 +105,131 @@ const LAWS = [
 const EXERCISES = [
   {
     id: "ex1",
-    title: "Скользящий блок",
-    difficulty: "Лёгкое",
-    lawId: "newton2",
-    task: "Блок массой 5 кг разгоняется силой 20 Н. Найдите ускорение.",
-    answer: "4 м/с²",
+    title: "Планка",
+    lawId: "newton1",
+    muscles: "Кор, спина, плечи",
+    duration: "30–60 сек",
+    sets: "3 подхода",
+    description: "Встаньте в упор лёжа на предплечьях. Тело — прямая линия от головы до пят. Удерживайте положение.",
+    physicsLink: "Тело находится в равновесии: сумма всех сил равна нулю (ΣF = 0). Мышцы создают силы, уравновешивающие силу тяжести.",
     steps: [
-      { label: "Запишем второй закон", eq: "F = m · a" },
-      { label: "Выразим ускорение", eq: "a = F / m" },
-      { label: "Подставим данные", eq: "a = 20 / 5" },
-      { label: "Результат", eq: "a = 4 м/с²" },
+      { label: "Упритесь предплечьями в пол", note: "Локти под плечами" },
+      { label: "Поднимите тело в одну линию", note: "Не прогибайте поясницу" },
+      { label: "Напрягите кор и удерживайте", note: "Дышите ровно" },
+      { label: "Опуститесь и отдохните 30 сек", note: "Повторите 3 раза" },
     ],
   },
   {
     id: "ex2",
-    title: "Цепь постоянного тока",
-    difficulty: "Среднее",
-    lawId: "ohm",
-    task: "Напряжение 12 В, сопротивление 4 Ом. Чему равен ток?",
-    answer: "3 А",
+    title: "Приседания",
+    lawId: "newton2",
+    muscles: "Квадрицепс, ягодицы, кор",
+    duration: "3 × 15 повт.",
+    sets: "3 подхода",
+    description: "Встаньте прямо, ноги на ширине плеч. Приседайте, отводя таз назад, колени над носками. Вернитесь в исходное положение.",
+    physicsLink: "При подъёме мышцы ног создают силу F = m·a. Чем быстрее подъём — тем больше ускорение и нагрузка на мышцы.",
     steps: [
-      { label: "Запишем закон Ома", eq: "I = U / R" },
-      { label: "Подставим значения", eq: "I = 12 / 4" },
-      { label: "Результат", eq: "I = 3 А" },
+      { label: "Ноги на ширине плеч, носки чуть врозь", note: "Спина прямая" },
+      { label: "Медленно опускайтесь вниз", note: "Колени не выходят за носки" },
+      { label: "Бёдра параллельны полу — пауза", note: "Центр тяжести над стопами" },
+      { label: "Мощно выпрямите ноги", note: "F = m·a — работайте взрывно" },
     ],
   },
   {
     id: "ex3",
-    title: "Равновесие тел",
-    difficulty: "Лёгкое",
-    lawId: "newton1",
-    task: "Тело покоится на поверхности. Вес тела 50 Н. Чему равна сила реакции опоры?",
-    answer: "50 Н",
+    title: "Отжимания",
+    lawId: "newton3",
+    muscles: "Грудь, трицепс, плечи",
+    duration: "3 × 10–20 повт.",
+    sets: "3 подхода",
+    description: "Упор лёжа. Опускайте грудь к полу, сгибая руки, затем мощно отталкивайтесь вверх.",
+    physicsLink: "При отталкивании руки давят на пол (F₁₂), пол с равной силой толкает тело вверх (F₂₁). Это 3-й закон Ньютона в действии.",
     steps: [
-      { label: "Тело в покое, значит ΣF = 0", eq: "N − mg = 0" },
-      { label: "Выразим силу реакции", eq: "N = mg" },
-      { label: "Результат", eq: "N = 50 Н" },
+      { label: "Упор лёжа, руки чуть шире плеч", note: "Тело — прямая линия" },
+      { label: "Медленно опускайтесь к полу", note: "Грудь почти касается пола" },
+      { label: "Отталкивайтесь руками от пола", note: "Сила реакции = сила давления" },
+      { label: "Полностью выпрямите руки", note: "Не блокируйте локти" },
     ],
   },
   {
     id: "ex4",
-    title: "Сжатие газа",
-    difficulty: "Среднее",
+    title: "Прыжки на месте",
     lawId: "boyle",
-    task: "Газ занимает 2 л при давлении 100 кПа. Каков объём при 200 кПа?",
-    answer: "1 л",
+    muscles: "Всё тело, сердечно-сосудистая система",
+    duration: "3 × 30 сек",
+    sets: "3 подхода",
+    description: "Прыгайте на месте, активно работая руками. При интенсивной нагрузке лёгкие работают как насос.",
+    physicsLink: "Лёгкие — биологический аналог закона Бойля: при вдохе объём растёт, давление падает — воздух входит. При выдохе — наоборот.",
     steps: [
-      { label: "Записываем закон", eq: "p₁ · V₁ = p₂ · V₂" },
-      { label: "Выражаем V₂", eq: "V₂ = p₁ · V₁ / p₂" },
-      { label: "Подставляем", eq: "V₂ = 100 · 2 / 200" },
-      { label: "Результат", eq: "V₂ = 1 л" },
+      { label: "Встаньте прямо, руки вдоль тела", note: "Ноги вместе" },
+      { label: "Прыгните, разводя ноги в стороны", note: "Руки поднимаются вверх" },
+      { label: "Прыгните обратно в исходную", note: "Следите за дыханием" },
+      { label: "Ритм — 1 прыжок в секунду", note: "p·V = const в лёгких" },
     ],
   },
   {
     id: "ex5",
-    title: "Отдача при выстреле",
-    difficulty: "Сложное",
+    title: "Берпи",
     lawId: "newton3",
-    task: "Пуля 10 г вылетает со скоростью 900 м/с. Масса ружья 3 кг. Найдите скорость отдачи.",
-    answer: "3 м/с",
+    muscles: "Грудь, ноги, кор, кардио",
+    duration: "3 × 10 повт.",
+    sets: "3 подхода",
+    description: "Комплексное упражнение: присед — упор лёжа — отжимание — прыжок вверх с хлопком над головой.",
+    physicsLink: "Каждый прыжок — отталкивание от земли. Земля отвечает равной силой (3-й закон). Чем сильнее толчок — тем выше прыжок.",
     steps: [
-      { label: "Третий закон + импульс", eq: "m₁v₁ = m₂v₂" },
-      { label: "Выражаем v₂", eq: "v₂ = m₁v₁ / m₂" },
-      { label: "Подставляем", eq: "v₂ = 0.01 · 900 / 3" },
-      { label: "Результат", eq: "v₂ = 3 м/с" },
+      { label: "Присядьте, руки на пол", note: "Спина прямая" },
+      { label: "Прыжком — в упор лёжа", note: "Тело прямое" },
+      { label: "Отожмитесь один раз", note: "Необязательно для новичков" },
+      { label: "Прыжком — ноги к рукам, встаньте", note: "" },
+      { label: "Прыгните вверх с хлопком", note: "Максимальное отталкивание" },
     ],
   },
   {
     id: "ex6",
-    title: "Нагрев газа при p = const",
-    difficulty: "Среднее",
+    title: "Растяжка с нагревом",
     lawId: "gaylusac",
-    task: "Газ при T₁ = 300 К занимает V₁ = 6 л. До какого объёма расширится при T₂ = 450 К?",
-    answer: "9 л",
+    muscles: "Мышцы всего тела, гибкость",
+    duration: "5–10 мин",
+    sets: "После тренировки",
+    description: "Статическая растяжка разогретых мышц. Тёплые мышцы эластичнее — аналог расширения газа при нагреве.",
+    physicsLink: "По закону Гей-Люссака: при нагреве объём тела (газа) растёт. Мышцы после разминки тоже «расширяются» — становятся длиннее и гибче.",
     steps: [
-      { label: "Закон Гей-Люссака", eq: "V₁ / T₁ = V₂ / T₂" },
-      { label: "Выражаем V₂", eq: "V₂ = V₁ · T₂ / T₁" },
-      { label: "Подставляем", eq: "V₂ = 6 · 450 / 300" },
-      { label: "Результат", eq: "V₂ = 9 л" },
+      { label: "Разогрейтесь 5 мин лёгким бегом", note: "Температура мышц ↑" },
+      { label: "Наклон к прямым ногам", note: "Удерживайте 30 сек" },
+      { label: "Выпад с растяжкой сгибателей бедра", note: "По 30 сек на каждую ногу" },
+      { label: "Растяжка плеч и груди", note: "Дышите глубоко" },
     ],
   },
   {
     id: "ex7",
-    title: "Давление в закрытом баллоне",
-    difficulty: "Среднее",
+    title: "Дыхательная гимнастика",
     lawId: "charles",
-    task: "Газ при T₁ = 250 К имеет давление p₁ = 200 кПа. Каково давление при T₂ = 500 К?",
-    answer: "400 кПа",
+    muscles: "Диафрагма, межрёберные мышцы",
+    duration: "5–7 мин",
+    sets: "Утро / после тренировки",
+    description: "Глубокое диафрагмальное дыхание: медленный вдох носом 4 сек, пауза 2 сек, выдох ртом 6 сек.",
+    physicsLink: "При задержке дыхания объём лёгких постоянен (изохорный процесс). Чем теплее воздух при выдохе — тем выше его давление (p/T = const).",
     steps: [
-      { label: "Закон Шарля", eq: "p₁ / T₁ = p₂ / T₂" },
-      { label: "Выражаем p₂", eq: "p₂ = p₁ · T₂ / T₁" },
-      { label: "Подставляем", eq: "p₂ = 200 · 500 / 250" },
-      { label: "Результат", eq: "p₂ = 400 кПа" },
+      { label: "Лягте на спину, рука на животе", note: "Живот должен подниматься" },
+      { label: "Вдох носом — 4 секунды", note: "Живот расширяется" },
+      { label: "Задержка — 2 секунды", note: "V = const, p растёт" },
+      { label: "Выдох ртом — 6 секунд", note: "Живот опускается" },
     ],
   },
   {
     id: "ex8",
-    title: "КПД теплового двигателя",
-    difficulty: "Сложное",
+    title: "Кардио-интервалы",
     lawId: "thermo1",
-    task: "Газ получил Q = 500 Дж теплоты и совершил работу A = 200 Дж. Найдите изменение внутренней энергии и КПД.",
-    answer: "ΔU = 300 Дж, η = 40%",
+    muscles: "Сердечно-сосудистая система, всё тело",
+    duration: "20 мин",
+    sets: "8 интервалов",
+    description: "Чередуйте 20 сек максимального усилия (бег, прыжки) и 10 сек отдыха. Протокол Табата.",
+    physicsLink: "Организм — тепловая машина: пища (Q) превращается в движение (A) и тепло (ΔU). ΔU = Q − A. КПД мышц ~25%.",
     steps: [
-      { label: "Первое начало термодинамики", eq: "ΔU = Q − A" },
-      { label: "Подставляем", eq: "ΔU = 500 − 200" },
-      { label: "Внутренняя энергия", eq: "ΔU = 300 Дж" },
-      { label: "КПД", eq: "η = A/Q = 200/500 = 40%" },
+      { label: "Разминка 3 мин лёгким бегом", note: "Тело накапливает тепло" },
+      { label: "20 сек — максимальный темп", note: "A — работа мышц" },
+      { label: "10 сек — полный отдых", note: "ΔU восстанавливается" },
+      { label: "Повторите 8 раз", note: "Итого ~4 мин интенсивной работы" },
     ],
   },
 ];
@@ -396,11 +415,6 @@ const DIAGRAMS: Record<string, React.FC> = {
 
 // ─── Style maps ────────────────────────────────────────────────────────────────
 
-const DIFFICULTY_STYLE: Record<string, string> = {
-  "Лёгкое": "text-emerald-700 bg-emerald-50 border-emerald-200",
-  "Среднее": "text-amber-700 bg-amber-50 border-amber-200",
-  "Сложное": "text-rose-700 bg-rose-50 border-rose-200",
-};
 
 const CATEGORY_STYLE: Record<string, string> = {
   "Механика": "bg-blue-50 text-blue-700",
@@ -545,28 +559,51 @@ function LawModalContent({ law, onClose }: { law: typeof LAWS[0]; onClose: () =>
       {/* Exercise tab */}
       {activeTab === "exercise" && exercise && (
         <div className="p-6 space-y-5 animate-fade-in">
-          <div className="flex items-center gap-3">
-            <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[exercise.difficulty]}`}>
-              {exercise.difficulty}
-            </span>
-            <span className="text-sm font-serif">{exercise.title}</span>
+          {/* Meta */}
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { icon: "Dumbbell", label: "Мышцы", value: exercise.muscles },
+              { icon: "Timer", label: "Время", value: exercise.duration },
+              { icon: "RotateCcw", label: "Подходы", value: exercise.sets },
+            ].map(item => (
+              <div key={item.label} className="border border-border p-3 text-center">
+                <Icon name={item.icon as "Dumbbell"} size={16} className="mx-auto mb-1 text-muted-foreground" />
+                <p className="text-xs text-muted-foreground font-sans mb-0.5">{item.label}</p>
+                <p className="text-xs font-medium font-sans">{item.value}</p>
+              </div>
+            ))}
           </div>
 
+          {/* Description */}
           <div className="bg-muted/50 border border-border p-4 text-sm font-sans leading-relaxed">
-            {exercise.task}
+            {exercise.description}
           </div>
 
+          {/* Physics link */}
+          <div className="border-l-2 pl-4 py-1" style={{ borderColor: law.color }}>
+            <p className="text-xs font-sans font-medium uppercase tracking-widest mb-1" style={{ color: law.color }}>
+              Физика в этом упражнении
+            </p>
+            <p className="text-sm font-sans text-muted-foreground leading-relaxed">{exercise.physicsLink}</p>
+          </div>
+
+          {/* Diagram */}
           <div className="bg-muted/40 border border-border h-40 flex items-center justify-center">
             {Diagram && <Diagram />}
           </div>
 
+          {/* Steps */}
           <div>
-            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Решение по шагам</p>
+            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Техника выполнения</p>
             <div className="space-y-2 mb-4">
               {exercise.steps.slice(0, step + 1).map((s, i) => (
-                <div key={i} className="flex items-center gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
-                  <span className="text-xs text-muted-foreground font-sans flex-shrink-0 w-40">{s.label}</span>
-                  <span className="font-mono text-sm font-medium">{s.eq}</span>
+                <div key={i} className="flex items-start gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
+                  <span className="w-5 h-5 rounded-full text-xs font-mono font-medium text-white flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{ background: law.color }}>{i + 1}</span>
+                  <div>
+                    <p className="text-sm font-sans font-medium">{s.label}</p>
+                    {s.note && <p className="text-xs text-muted-foreground font-sans mt-0.5">{s.note}</p>}
+                  </div>
                 </div>
               ))}
             </div>
@@ -579,30 +616,21 @@ function LawModalContent({ law, onClose }: { law: typeof LAWS[0]; onClose: () =>
                   <Icon name="ChevronRight" size={14} />
                   Следующий шаг
                 </button>
-              ) : !revealed ? (
-                <button
-                  onClick={() => setRevealed(true)}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
-                >
-                  <Icon name="Check" size={14} />
-                  Показать ответ
-                </button>
-              ) : null}
+              ) : (
+                <div className="flex items-center gap-2 px-4 py-2 border border-border text-sm font-sans text-muted-foreground">
+                  <Icon name="CheckCircle" size={14} />
+                  Все шаги показаны
+                </div>
+              )}
               {step > 0 && (
                 <button
-                  onClick={() => { setStep(0); setRevealed(false); }}
+                  onClick={() => setStep(0)}
                   className="px-4 py-2 border border-border text-sm font-sans hover:bg-muted transition-colors"
                 >
                   Сначала
                 </button>
               )}
             </div>
-            {revealed && (
-              <div className="mt-4 p-4 border-2 border-foreground animate-fade-in">
-                <p className="text-xs text-muted-foreground font-sans mb-1">Ответ:</p>
-                <p className="font-mono text-2xl font-medium">{exercise.answer}</p>
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -620,9 +648,7 @@ function ExCard({ ex, laws, onClick }: { ex: typeof EXERCISES[0]; laws: typeof L
       className="w-full text-left border border-border bg-card p-5 hover:border-foreground/30 hover:shadow-sm transition-all duration-150 group"
     >
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[ex.difficulty]}`}>
-          {ex.difficulty}
-        </span>
+        <span className="text-xs px-2 py-0.5 font-sans bg-muted text-muted-foreground">{ex.duration}</span>
         {law && (
           <span className="font-mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
             {law.formula}
@@ -630,7 +656,7 @@ function ExCard({ ex, laws, onClick }: { ex: typeof EXERCISES[0]; laws: typeof L
         )}
       </div>
       <p className="font-serif text-xl leading-tight mb-1">{ex.title}</p>
-      {law && <p className="text-xs text-muted-foreground font-sans">{law.short}</p>}
+      <p className="text-xs text-muted-foreground font-sans">{ex.muscles}</p>
       <div className="mt-3 h-px w-0 group-hover:w-full transition-all duration-300 bg-foreground/20" />
     </button>
   );
@@ -638,7 +664,6 @@ function ExCard({ ex, laws, onClick }: { ex: typeof EXERCISES[0]; laws: typeof L
 
 function ExModalContent({ ex, laws, onClose }: { ex: typeof EXERCISES[0]; laws: typeof LAWS; onClose: () => void }) {
   const [step, setStep] = useState(0);
-  const [revealed, setRevealed] = useState(false);
   const law = laws.find(l => l.id === ex.lawId);
   const Diagram = law ? DIAGRAMS[law.diagram] : null;
   const isLast = step >= ex.steps.length - 1;
@@ -647,13 +672,9 @@ function ExModalContent({ ex, laws, onClose }: { ex: typeof EXERCISES[0]; laws: 
     <>
       <div className="flex items-start justify-between gap-4 p-6 border-b border-border">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[ex.difficulty]}`}>
-              {ex.difficulty}
-            </span>
-            {law && <span className="text-xs text-muted-foreground font-sans">{law.short}</span>}
-          </div>
-          <h2 className="font-serif text-3xl leading-tight">{ex.title}</h2>
+          {law && <span className={`text-xs px-2 py-0.5 font-sans ${CATEGORY_STYLE[law.category]}`}>{law.category}</span>}
+          <h2 className="font-serif text-3xl leading-tight mt-2">{ex.title}</h2>
+          <p className="text-xs text-muted-foreground font-sans mt-0.5">{ex.muscles}</p>
         </div>
         <button onClick={onClose} className="p-1.5 hover:bg-muted transition-colors flex-shrink-0 mt-1">
           <Icon name="X" size={16} />
@@ -661,34 +682,55 @@ function ExModalContent({ ex, laws, onClose }: { ex: typeof EXERCISES[0]; laws: 
       </div>
 
       <div className="p-6 space-y-5">
-        <div className="bg-muted/50 border border-border p-4 text-sm font-sans leading-relaxed">
-          {ex.task}
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { icon: "Dumbbell", label: "Мышцы", value: ex.muscles },
+            { icon: "Timer", label: "Время", value: ex.duration },
+            { icon: "RotateCcw", label: "Подходы", value: ex.sets },
+          ].map(item => (
+            <div key={item.label} className="border border-border p-3 text-center">
+              <Icon name={item.icon as "Dumbbell"} size={16} className="mx-auto mb-1 text-muted-foreground" />
+              <p className="text-xs text-muted-foreground font-sans mb-0.5">{item.label}</p>
+              <p className="text-xs font-medium font-sans">{item.value}</p>
+            </div>
+          ))}
         </div>
 
-        {Diagram && law && (
-          <div>
-            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
-              Схема: {law.title}
+        <div className="bg-muted/50 border border-border p-4 text-sm font-sans leading-relaxed">
+          {ex.description}
+        </div>
+
+        {law && (
+          <div className="border-l-2 pl-4 py-1" style={{ borderColor: law.color }}>
+            <p className="text-xs font-sans font-medium uppercase tracking-widest mb-1" style={{ color: law.color }}>
+              Физика: {law.title}
             </p>
-            <div className="border border-border bg-muted/30 h-44 flex items-center justify-center">
-              <Diagram />
-            </div>
+            <p className="text-sm font-sans text-muted-foreground leading-relaxed">{ex.physicsLink}</p>
+          </div>
+        )}
+
+        {Diagram && (
+          <div className="border border-border bg-muted/30 h-44 flex items-center justify-center">
+            <Diagram />
           </div>
         )}
 
         <div>
           <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
-            Решение по шагам
+            Техника выполнения
           </p>
           <div className="space-y-2 mb-4">
             {ex.steps.slice(0, step + 1).map((s, i) => (
-              <div key={i} className="flex items-center gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
-                <span className="text-xs text-muted-foreground font-sans flex-shrink-0 w-40">{s.label}</span>
-                <span className="font-mono text-sm font-medium">{s.eq}</span>
+              <div key={i} className="flex items-start gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
+                <span className="w-5 h-5 rounded-full text-xs font-mono font-medium text-white flex items-center justify-center flex-shrink-0 mt-0.5"
+                  style={{ background: law?.color ?? "#111" }}>{i + 1}</span>
+                <div>
+                  <p className="text-sm font-sans font-medium">{s.label}</p>
+                  {s.note && <p className="text-xs text-muted-foreground font-sans mt-0.5">{s.note}</p>}
+                </div>
               </div>
             ))}
           </div>
-
           <div className="flex gap-2">
             {!isLast ? (
               <button
@@ -698,31 +740,21 @@ function ExModalContent({ ex, laws, onClose }: { ex: typeof EXERCISES[0]; laws: 
                 <Icon name="ChevronRight" size={14} />
                 Следующий шаг
               </button>
-            ) : !revealed ? (
-              <button
-                onClick={() => setRevealed(true)}
-                className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
-              >
-                <Icon name="Check" size={14} />
-                Показать ответ
-              </button>
-            ) : null}
+            ) : (
+              <div className="flex items-center gap-2 px-4 py-2 border border-border text-sm font-sans text-muted-foreground">
+                <Icon name="CheckCircle" size={14} />
+                Все шаги показаны
+              </div>
+            )}
             {step > 0 && (
               <button
-                onClick={() => { setStep(0); setRevealed(false); }}
+                onClick={() => setStep(0)}
                 className="px-4 py-2 border border-border text-sm font-sans hover:bg-muted transition-colors"
               >
                 Сначала
               </button>
             )}
           </div>
-
-          {revealed && (
-            <div className="mt-4 p-4 border-2 border-foreground animate-fade-in">
-              <p className="text-xs text-muted-foreground font-sans mb-1">Ответ:</p>
-              <p className="font-mono text-2xl font-medium">{ex.answer}</p>
-            </div>
-          )}
         </div>
       </div>
     </>
