@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
@@ -259,101 +259,134 @@ const CATEGORY_STYLE: Record<string, string> = {
   "Термодинамика": "bg-orange-50 text-orange-700",
 };
 
-// ─── Law components ────────────────────────────────────────────────────────────
+// ─── Modal ─────────────────────────────────────────────────────────────────────
 
-function LawCard({ law, selected, onClick }: { law: typeof LAWS[0]; selected: boolean; onClick: () => void }) {
+function Modal({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
   return (
-    <button
-      onClick={onClick}
-      className={`w-full text-left border p-4 transition-all duration-150
-        ${selected
-          ? "bg-foreground text-background border-foreground"
-          : "bg-card border-border hover:border-foreground/25"
-        }`}
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(2px)" }}
+      onClick={onClose}
     >
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <span className={`text-xs px-2 py-0.5 font-sans
-          ${selected ? "bg-white/20 text-white" : CATEGORY_STYLE[law.category]}`}>
-          {law.category}
-        </span>
-        <span className={`font-mono text-xs ${selected ? "text-white/60" : "text-muted-foreground"}`}>
-          {law.formula}
-        </span>
-      </div>
-      <p className={`font-serif text-lg leading-tight ${selected ? "text-background" : ""}`}>{law.title}</p>
-      <p className={`text-xs mt-0.5 font-sans ${selected ? "text-white/60" : "text-muted-foreground"}`}>{law.short}</p>
-    </button>
-  );
-}
-
-function LawDetail({ law }: { law: typeof LAWS[0] }) {
-  const Diagram = DIAGRAMS[law.diagram];
-  return (
-    <div className="space-y-4 animate-fade-in">
-      <div className="border border-border bg-card p-6">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <h2 className="font-serif text-3xl leading-tight">{law.title}</h2>
-          <span className="font-mono text-base font-medium bg-muted px-3 py-1.5 whitespace-nowrap flex-shrink-0" style={{ color: law.color }}>
-            {law.formula}
-          </span>
-        </div>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5 font-sans">{law.description}</p>
-        <div className="bg-muted/40 border border-border h-44 flex items-center justify-center">
-          {Diagram && <Diagram />}
-        </div>
-      </div>
-
-      <div className="border border-border bg-card p-5">
-        <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Примеры</p>
-        <ul className="space-y-2">
-          {law.examples.map((ex, i) => (
-            <li key={i} className="flex items-center gap-3 text-sm font-sans">
-              <span className="w-5 h-5 rounded-full text-xs font-mono font-medium text-white flex items-center justify-center flex-shrink-0"
-                style={{ background: law.color }}>
-                {i + 1}
-              </span>
-              {ex}
-            </li>
-          ))}
-        </ul>
+      <div
+        className="bg-card w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-border animate-scale-in shadow-2xl"
+        onClick={e => e.stopPropagation()}
+      >
+        {children}
       </div>
     </div>
   );
 }
 
-// ─── Exercise components ───────────────────────────────────────────────────────
+// ─── Law components ────────────────────────────────────────────────────────────
 
-function ExCard({ ex, laws, selected, onClick }: { ex: typeof EXERCISES[0]; laws: typeof LAWS; selected: boolean; onClick: () => void }) {
-  const law = laws.find(l => l.id === ex.lawId);
+function LawCard({ law, onClick }: { law: typeof LAWS[0]; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left border p-4 transition-all duration-150
-        ${selected
-          ? "bg-foreground text-background border-foreground"
-          : "bg-card border-border hover:border-foreground/25"
-        }`}
+      className="w-full text-left border border-border bg-card p-5 hover:border-foreground/30 hover:shadow-sm transition-all duration-150 group"
     >
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <span className={`text-xs px-2 py-0.5 border font-sans
-          ${selected ? "bg-white/20 text-white border-white/20" : DIFFICULTY_STYLE[ex.difficulty]}`}>
-          {ex.difficulty}
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <span className={`text-xs px-2 py-0.5 font-sans ${CATEGORY_STYLE[law.category]}`}>
+          {law.category}
         </span>
-        {law && (
-          <span className={`font-mono text-xs ${selected ? "text-white/60" : "text-muted-foreground"}`}>
-            {law.formula}
-          </span>
-        )}
+        <span className="font-mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+          {law.formula}
+        </span>
       </div>
-      <p className={`font-serif text-lg leading-tight ${selected ? "text-background" : ""}`}>{ex.title}</p>
-      {law && (
-        <p className={`text-xs mt-0.5 font-sans ${selected ? "text-white/60" : "text-muted-foreground"}`}>{law.short}</p>
-      )}
+      <p className="font-serif text-xl leading-tight mb-1">{law.title}</p>
+      <p className="text-xs text-muted-foreground font-sans">{law.short}</p>
+      <div className="mt-3 h-px w-0 group-hover:w-full transition-all duration-300" style={{ background: law.color }} />
     </button>
   );
 }
 
-function ExDetail({ ex, laws }: { ex: typeof EXERCISES[0]; laws: typeof LAWS }) {
+function LawModalContent({ law, onClose }: { law: typeof LAWS[0]; onClose: () => void }) {
+  const Diagram = DIAGRAMS[law.diagram];
+  return (
+    <>
+      <div className="flex items-start justify-between gap-4 p-6 border-b border-border">
+        <div>
+          <span className={`text-xs px-2 py-0.5 font-sans ${CATEGORY_STYLE[law.category]}`}>{law.category}</span>
+          <h2 className="font-serif text-3xl leading-tight mt-2">{law.title}</h2>
+          <p className="text-sm text-muted-foreground font-sans mt-0.5">{law.short}</p>
+        </div>
+        <div className="flex items-start gap-3 flex-shrink-0">
+          <span className="font-mono text-base font-medium bg-muted px-3 py-1.5" style={{ color: law.color }}>
+            {law.formula}
+          </span>
+          <button onClick={onClose} className="p-1.5 hover:bg-muted transition-colors">
+            <Icon name="X" size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div className="p-6 space-y-5">
+        <p className="text-sm text-muted-foreground leading-relaxed font-sans">{law.description}</p>
+
+        <div className="bg-muted/40 border border-border h-48 flex items-center justify-center">
+          {Diagram && <Diagram />}
+        </div>
+
+        <div>
+          <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Примеры применения</p>
+          <ul className="space-y-2">
+            {law.examples.map((ex, i) => (
+              <li key={i} className="flex items-center gap-3 text-sm font-sans">
+                <span className="w-5 h-5 rounded-full text-xs font-mono font-medium text-white flex items-center justify-center flex-shrink-0"
+                  style={{ background: law.color }}>
+                  {i + 1}
+                </span>
+                {ex}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ─── Exercise components ───────────────────────────────────────────────────────
+
+function ExCard({ ex, laws, onClick }: { ex: typeof EXERCISES[0]; laws: typeof LAWS; onClick: () => void }) {
+  const law = laws.find(l => l.id === ex.lawId);
+  return (
+    <button
+      onClick={onClick}
+      className="w-full text-left border border-border bg-card p-5 hover:border-foreground/30 hover:shadow-sm transition-all duration-150 group"
+    >
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[ex.difficulty]}`}>
+          {ex.difficulty}
+        </span>
+        {law && (
+          <span className="font-mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+            {law.formula}
+          </span>
+        )}
+      </div>
+      <p className="font-serif text-xl leading-tight mb-1">{ex.title}</p>
+      {law && <p className="text-xs text-muted-foreground font-sans">{law.short}</p>}
+      <div className="mt-3 h-px w-0 group-hover:w-full transition-all duration-300 bg-foreground/20" />
+    </button>
+  );
+}
+
+function ExModalContent({ ex, laws, onClose }: { ex: typeof EXERCISES[0]; laws: typeof LAWS; onClose: () => void }) {
   const [step, setStep] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const law = laws.find(l => l.id === ex.lawId);
@@ -361,82 +394,88 @@ function ExDetail({ ex, laws }: { ex: typeof EXERCISES[0]; laws: typeof LAWS }) 
   const isLast = step >= ex.steps.length - 1;
 
   return (
-    <div className="space-y-4 animate-fade-in">
-      <div className="border border-border bg-card p-6">
-        <div className="flex items-center gap-3 mb-3">
-          <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[ex.difficulty]}`}>
-            {ex.difficulty}
-          </span>
-          {law && <span className="text-xs text-muted-foreground font-sans">{law.short}</span>}
+    <>
+      <div className="flex items-start justify-between gap-4 p-6 border-b border-border">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[ex.difficulty]}`}>
+              {ex.difficulty}
+            </span>
+            {law && <span className="text-xs text-muted-foreground font-sans">{law.short}</span>}
+          </div>
+          <h2 className="font-serif text-3xl leading-tight">{ex.title}</h2>
         </div>
-        <h2 className="font-serif text-2xl mb-3">{ex.title}</h2>
+        <button onClick={onClose} className="p-1.5 hover:bg-muted transition-colors flex-shrink-0 mt-1">
+          <Icon name="X" size={16} />
+        </button>
+      </div>
+
+      <div className="p-6 space-y-5">
         <div className="bg-muted/50 border border-border p-4 text-sm font-sans leading-relaxed">
           {ex.task}
         </div>
-      </div>
 
-      {Diagram && law && (
-        <div className="border border-border bg-card p-5">
-          <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
-            Схема: {law.title}
-          </p>
-          <div className="h-40">
-            <Diagram />
-          </div>
-        </div>
-      )}
-
-      <div className="border border-border bg-card p-5">
-        <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
-          Решение по шагам
-        </p>
-
-        <div className="space-y-2 mb-4">
-          {ex.steps.slice(0, step + 1).map((s, i) => (
-            <div key={i} className="flex items-center gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
-              <span className="text-xs text-muted-foreground font-sans flex-shrink-0 w-40">{s.label}</span>
-              <span className="font-mono text-sm font-medium">{s.eq}</span>
+        {Diagram && law && (
+          <div>
+            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
+              Схема: {law.title}
+            </p>
+            <div className="border border-border bg-muted/30 h-44 flex items-center justify-center">
+              <Diagram />
             </div>
-          ))}
-        </div>
-
-        <div className="flex gap-2">
-          {!isLast ? (
-            <button
-              onClick={() => setStep(s => s + 1)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
-            >
-              <Icon name="ChevronRight" size={14} />
-              Следующий шаг
-            </button>
-          ) : !revealed ? (
-            <button
-              onClick={() => setRevealed(true)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
-            >
-              <Icon name="Check" size={14} />
-              Показать ответ
-            </button>
-          ) : null}
-
-          {step > 0 && (
-            <button
-              onClick={() => { setStep(0); setRevealed(false); }}
-              className="px-4 py-2 border border-border text-sm font-sans hover:bg-muted transition-colors"
-            >
-              Сначала
-            </button>
-          )}
-        </div>
-
-        {revealed && (
-          <div className="mt-4 p-4 border-2 border-foreground animate-fade-in">
-            <p className="text-xs text-muted-foreground font-sans mb-1">Ответ:</p>
-            <p className="font-mono text-2xl font-medium">{ex.answer}</p>
           </div>
         )}
+
+        <div>
+          <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
+            Решение по шагам
+          </p>
+          <div className="space-y-2 mb-4">
+            {ex.steps.slice(0, step + 1).map((s, i) => (
+              <div key={i} className="flex items-center gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
+                <span className="text-xs text-muted-foreground font-sans flex-shrink-0 w-40">{s.label}</span>
+                <span className="font-mono text-sm font-medium">{s.eq}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-2">
+            {!isLast ? (
+              <button
+                onClick={() => setStep(s => s + 1)}
+                className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
+              >
+                <Icon name="ChevronRight" size={14} />
+                Следующий шаг
+              </button>
+            ) : !revealed ? (
+              <button
+                onClick={() => setRevealed(true)}
+                className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
+              >
+                <Icon name="Check" size={14} />
+                Показать ответ
+              </button>
+            ) : null}
+            {step > 0 && (
+              <button
+                onClick={() => { setStep(0); setRevealed(false); }}
+                className="px-4 py-2 border border-border text-sm font-sans hover:bg-muted transition-colors"
+              >
+                Сначала
+              </button>
+            )}
+          </div>
+
+          {revealed && (
+            <div className="mt-4 p-4 border-2 border-foreground animate-fade-in">
+              <p className="text-xs text-muted-foreground font-sans mb-1">Ответ:</p>
+              <p className="font-mono text-2xl font-medium">{ex.answer}</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -446,8 +485,8 @@ type Tab = "laws" | "exercises";
 
 export default function Index() {
   const [tab, setTab] = useState<Tab>("laws");
-  const [selectedLaw, setSelectedLaw] = useState(LAWS[0]);
-  const [selectedEx, setSelectedEx] = useState(EXERCISES[0]);
+  const [openLaw, setOpenLaw] = useState<typeof LAWS[0] | null>(null);
+  const [openEx, setOpenEx] = useState<typeof EXERCISES[0] | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -481,39 +520,39 @@ export default function Index() {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         {tab === "laws" && (
-          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
-            <div className="space-y-2">
-              <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
-                {LAWS.length} законов
-              </p>
+          <div>
+            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-4">
+              {LAWS.length} законов — нажмите на карточку, чтобы открыть
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {LAWS.map(law => (
-                <LawCard key={law.id} law={law} selected={selectedLaw.id === law.id} onClick={() => setSelectedLaw(law)} />
+                <LawCard key={law.id} law={law} onClick={() => setOpenLaw(law)} />
               ))}
-            </div>
-            <div>
-              <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Подробнее</p>
-              <LawDetail key={selectedLaw.id} law={selectedLaw} />
             </div>
           </div>
         )}
 
         {tab === "exercises" && (
-          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
-            <div className="space-y-2">
-              <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">
-                {EXERCISES.length} упражнений
-              </p>
+          <div>
+            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-4">
+              {EXERCISES.length} упражнений — нажмите на карточку, чтобы решить
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {EXERCISES.map(ex => (
-                <ExCard key={ex.id} ex={ex} laws={LAWS} selected={selectedEx.id === ex.id} onClick={() => setSelectedEx(ex)} />
+                <ExCard key={ex.id} ex={ex} laws={LAWS} onClick={() => setOpenEx(ex)} />
               ))}
-            </div>
-            <div>
-              <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Решение</p>
-              <ExDetail key={selectedEx.id} ex={selectedEx} laws={LAWS} />
             </div>
           </div>
         )}
       </main>
+
+      <Modal open={!!openLaw} onClose={() => setOpenLaw(null)}>
+        {openLaw && <LawModalContent law={openLaw} onClose={() => setOpenLaw(null)} />}
+      </Modal>
+
+      <Modal open={!!openEx} onClose={() => setOpenEx(null)}>
+        {openEx && <ExModalContent key={openEx.id} ex={openEx} laws={LAWS} onClose={() => setOpenEx(null)} />}
+      </Modal>
     </div>
   );
 }
