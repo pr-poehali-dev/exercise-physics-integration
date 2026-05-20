@@ -64,6 +64,42 @@ const LAWS = [
     diagram: "boyle",
     examples: ["Насос для шин", "Дыхание", "Барокамера"],
   },
+  {
+    id: "gaylusac",
+    title: "Закон Гей-Люссака",
+    short: "Изобарный процесс",
+    formula: "V / T = const",
+    category: "Термодинамика",
+    color: "#b45309",
+    description:
+      "При постоянном давлении объём идеального газа прямо пропорционален его абсолютной температуре.",
+    diagram: "gaylusac",
+    examples: ["Воздушный шар при нагреве", "Термометр", "Духовка"],
+  },
+  {
+    id: "charles",
+    title: "Закон Шарля",
+    short: "Изохорный процесс",
+    formula: "p / T = const",
+    category: "Термодинамика",
+    color: "#92400e",
+    description:
+      "При постоянном объёме давление идеального газа прямо пропорционально его абсолютной температуре.",
+    diagram: "charles",
+    examples: ["Автомобильные шины в жару", "Автоклав", "Баллон с газом у костра"],
+  },
+  {
+    id: "thermo1",
+    title: "Первое начало термодинамики",
+    short: "Закон сохранения энергии",
+    formula: "ΔU = Q − A",
+    category: "Термодинамика",
+    color: "#c2410c",
+    description:
+      "Изменение внутренней энергии системы равно количеству теплоты, полученной системой, минус работа, совершённая системой.",
+    diagram: "thermo1",
+    examples: ["КПД тепловых двигателей", "Нагрев газа в цилиндре", "Холодильник"],
+  },
 ];
 
 const EXERCISES = [
@@ -133,6 +169,48 @@ const EXERCISES = [
       { label: "Выражаем v₂", eq: "v₂ = m₁v₁ / m₂" },
       { label: "Подставляем", eq: "v₂ = 0.01 · 900 / 3" },
       { label: "Результат", eq: "v₂ = 3 м/с" },
+    ],
+  },
+  {
+    id: "ex6",
+    title: "Нагрев газа при p = const",
+    difficulty: "Среднее",
+    lawId: "gaylusac",
+    task: "Газ при T₁ = 300 К занимает V₁ = 6 л. До какого объёма расширится при T₂ = 450 К?",
+    answer: "9 л",
+    steps: [
+      { label: "Закон Гей-Люссака", eq: "V₁ / T₁ = V₂ / T₂" },
+      { label: "Выражаем V₂", eq: "V₂ = V₁ · T₂ / T₁" },
+      { label: "Подставляем", eq: "V₂ = 6 · 450 / 300" },
+      { label: "Результат", eq: "V₂ = 9 л" },
+    ],
+  },
+  {
+    id: "ex7",
+    title: "Давление в закрытом баллоне",
+    difficulty: "Среднее",
+    lawId: "charles",
+    task: "Газ при T₁ = 250 К имеет давление p₁ = 200 кПа. Каково давление при T₂ = 500 К?",
+    answer: "400 кПа",
+    steps: [
+      { label: "Закон Шарля", eq: "p₁ / T₁ = p₂ / T₂" },
+      { label: "Выражаем p₂", eq: "p₂ = p₁ · T₂ / T₁" },
+      { label: "Подставляем", eq: "p₂ = 200 · 500 / 250" },
+      { label: "Результат", eq: "p₂ = 400 кПа" },
+    ],
+  },
+  {
+    id: "ex8",
+    title: "КПД теплового двигателя",
+    difficulty: "Сложное",
+    lawId: "thermo1",
+    task: "Газ получил Q = 500 Дж теплоты и совершил работу A = 200 Дж. Найдите изменение внутренней энергии и КПД.",
+    answer: "ΔU = 300 Дж, η = 40%",
+    steps: [
+      { label: "Первое начало термодинамики", eq: "ΔU = Q − A" },
+      { label: "Подставляем", eq: "ΔU = 500 − 200" },
+      { label: "Внутренняя энергия", eq: "ΔU = 300 Дж" },
+      { label: "КПД", eq: "η = A/Q = 200/500 = 40%" },
     ],
   },
 ];
@@ -237,12 +315,83 @@ function BoyleSvg() {
   );
 }
 
+function GaylusacSvg() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-full">
+      <defs>
+        <marker id="arrowAmb" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#b45309" />
+        </marker>
+      </defs>
+      <rect x="30" y="80" width="40" height="60" rx="2" fill="#b45309" fillOpacity="0.1" stroke="#b45309" strokeWidth="1.5" />
+      <text x="50" y="116" textAnchor="middle" fontSize="10" fill="#b45309" fontFamily="IBM Plex Mono, monospace">V₁</text>
+      <text x="50" y="74" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">T₁</text>
+      <rect x="140" y="50" width="40" height="90" rx="2" fill="#b45309" fillOpacity="0.1" stroke="#b45309" strokeWidth="1.5" />
+      <text x="160" y="100" textAnchor="middle" fontSize="10" fill="#b45309" fontFamily="IBM Plex Mono, monospace">V₂</text>
+      <text x="160" y="44" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">T₂ &gt; T₁</text>
+      <line x1="75" y1="95" x2="135" y2="95" stroke="#b45309" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#arrowAmb)" />
+      <text x="107" y="88" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">нагрев</text>
+      <text x="240" y="80" textAnchor="middle" fontSize="13" fill="#b45309" fontFamily="IBM Plex Mono, monospace">V / T =</text>
+      <text x="240" y="98" textAnchor="middle" fontSize="13" fill="#b45309" fontFamily="IBM Plex Mono, monospace">const</text>
+      <text x="160" y="155" textAnchor="middle" fontSize="10" fill="#9ca3af" fontFamily="IBM Plex Sans, sans-serif">при p = const: объём растёт с температурой</text>
+    </svg>
+  );
+}
+
+function CharlesSvg() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-full">
+      <defs>
+        <marker id="arrowBrown" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#92400e" />
+        </marker>
+      </defs>
+      <rect x="30" y="55" width="70" height="85" rx="3" fill="#92400e" fillOpacity="0.08" stroke="#92400e" strokeWidth="1.5" />
+      <text x="65" y="100" textAnchor="middle" fontSize="11" fill="#92400e" fontFamily="IBM Plex Mono, monospace">V = const</text>
+      <text x="65" y="50" textAnchor="middle" fontSize="9" fill="#92400e" fontFamily="IBM Plex Mono, monospace">T₁, p₁</text>
+      <text x="65" y="125" textAnchor="middle" fontSize="18" fill="#92400e" opacity="0.15" fontFamily="IBM Plex Mono, monospace">···</text>
+      <text x="65" y="152" textAnchor="middle" fontSize="9" fill="#92400e" fontFamily="IBM Plex Mono, monospace">нагрев</text>
+      <line x1="105" y1="80" x2="175" y2="65" stroke="#92400e" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#arrowBrown)" />
+      <text x="180" y="55" textAnchor="start" fontSize="10" fill="#92400e" fontFamily="IBM Plex Mono, monospace">p₂ ↑</text>
+      <text x="180" y="68" textAnchor="start" fontSize="9" fill="#92400e" fontFamily="IBM Plex Mono, monospace">T₂ &gt; T₁</text>
+      <text x="240" y="100" textAnchor="middle" fontSize="13" fill="#92400e" fontFamily="IBM Plex Mono, monospace">p / T =</text>
+      <text x="240" y="118" textAnchor="middle" fontSize="13" fill="#92400e" fontFamily="IBM Plex Mono, monospace">const</text>
+      <text x="160" y="155" textAnchor="middle" fontSize="10" fill="#9ca3af" fontFamily="IBM Plex Sans, sans-serif">при V = const: давление растёт с температурой</text>
+    </svg>
+  );
+}
+
+function Thermo1Svg() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-full">
+      <defs>
+        <marker id="arrowC2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#c2410c" />
+        </marker>
+      </defs>
+      <circle cx="160" cy="82" r="48" fill="#c2410c" fillOpacity="0.08" stroke="#c2410c" strokeWidth="1.5" />
+      <text x="160" y="78" textAnchor="middle" fontSize="11" fill="#c2410c" fontFamily="IBM Plex Mono, monospace">система</text>
+      <text x="160" y="94" textAnchor="middle" fontSize="10" fill="#c2410c" fontFamily="IBM Plex Mono, monospace">ΔU</text>
+      <line x1="40" y1="68" x2="108" y2="75" stroke="#c2410c" strokeWidth="2" markerEnd="url(#arrowC2)" />
+      <text x="22" y="60" textAnchor="middle" fontSize="11" fill="#c2410c" fontFamily="IBM Plex Mono, monospace">Q</text>
+      <text x="22" y="73" textAnchor="middle" fontSize="9" fill="#c2410c" fontFamily="IBM Plex Mono, monospace">теплота</text>
+      <line x1="212" y1="75" x2="278" y2="62" stroke="#c2410c" strokeWidth="2" markerEnd="url(#arrowC2)" />
+      <text x="295" y="55" textAnchor="middle" fontSize="11" fill="#c2410c" fontFamily="IBM Plex Mono, monospace">A</text>
+      <text x="295" y="68" textAnchor="middle" fontSize="9" fill="#c2410c" fontFamily="IBM Plex Mono, monospace">работа</text>
+      <text x="160" y="152" textAnchor="middle" fontSize="10" fill="#9ca3af" fontFamily="IBM Plex Sans, sans-serif">ΔU = Q − A: теплота идёт на нагрев и работу</text>
+    </svg>
+  );
+}
+
 const DIAGRAMS: Record<string, React.FC> = {
   inertia: InertiaSvg,
   force: ForceSvg,
   reaction: ReactionSvg,
   ohm: OhmSvg,
   boyle: BoyleSvg,
+  gaylusac: GaylusacSvg,
+  charles: CharlesSvg,
+  thermo1: Thermo1Svg,
 };
 
 // ─── Style maps ────────────────────────────────────────────────────────────────
