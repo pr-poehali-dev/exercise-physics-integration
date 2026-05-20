@@ -464,9 +464,16 @@ function LawCard({ law, onClick }: { law: typeof LAWS[0]; onClick: () => void })
 }
 
 function LawModalContent({ law, onClose }: { law: typeof LAWS[0]; onClose: () => void }) {
+  const [activeTab, setActiveTab] = useState<"law" | "exercise">("law");
+  const [step, setStep] = useState(0);
+  const [revealed, setRevealed] = useState(false);
   const Diagram = DIAGRAMS[law.diagram];
+  const exercise = EXERCISES.find(e => e.lawId === law.id);
+  const isLast = exercise ? step >= exercise.steps.length - 1 : true;
+
   return (
     <>
+      {/* Header */}
       <div className="flex items-start justify-between gap-4 p-6 border-b border-border">
         <div>
           <span className={`text-xs px-2 py-0.5 font-sans ${CATEGORY_STYLE[law.category]}`}>{law.category}</span>
@@ -483,28 +490,122 @@ function LawModalContent({ law, onClose }: { law: typeof LAWS[0]; onClose: () =>
         </div>
       </div>
 
-      <div className="p-6 space-y-5">
-        <p className="text-sm text-muted-foreground leading-relaxed font-sans">{law.description}</p>
-
-        <div className="bg-muted/40 border border-border h-48 flex items-center justify-center">
-          {Diagram && <Diagram />}
-        </div>
-
-        <div>
-          <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Примеры применения</p>
-          <ul className="space-y-2">
-            {law.examples.map((ex, i) => (
-              <li key={i} className="flex items-center gap-3 text-sm font-sans">
-                <span className="w-5 h-5 rounded-full text-xs font-mono font-medium text-white flex items-center justify-center flex-shrink-0"
-                  style={{ background: law.color }}>
-                  {i + 1}
-                </span>
-                {ex}
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* Tabs */}
+      <div className="flex border-b border-border">
+        {(["law", "exercise"] as const).map((t, i) => (
+          <button
+            key={t}
+            onClick={() => setActiveTab(t)}
+            className={`flex items-center gap-2 px-5 py-3 text-sm font-sans transition-all duration-150 border-b-2
+              ${activeTab === t
+                ? "border-foreground text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+              } ${i > 0 ? "border-l border-border" : ""}`}
+          >
+            <Icon name={t === "law" ? "BookOpen" : "PenLine"} size={13} />
+            {t === "law" ? "Закон" : "Упражнение"}
+          </button>
+        ))}
       </div>
+
+      {/* Law tab */}
+      {activeTab === "law" && (
+        <div className="p-6 space-y-5 animate-fade-in">
+          <p className="text-sm text-muted-foreground leading-relaxed font-sans">{law.description}</p>
+          <div className="bg-muted/40 border border-border h-48 flex items-center justify-center">
+            {Diagram && <Diagram />}
+          </div>
+          <div>
+            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Примеры применения</p>
+            <ul className="space-y-2">
+              {law.examples.map((ex, i) => (
+                <li key={i} className="flex items-center gap-3 text-sm font-sans">
+                  <span className="w-5 h-5 rounded-full text-xs font-mono font-medium text-white flex items-center justify-center flex-shrink-0"
+                    style={{ background: law.color }}>
+                    {i + 1}
+                  </span>
+                  {ex}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {exercise && (
+            <button
+              onClick={() => setActiveTab("exercise")}
+              className="flex items-center gap-2 w-full px-4 py-3 border border-border hover:border-foreground/30 hover:bg-muted/40 transition-all text-sm font-sans text-left"
+            >
+              <Icon name="PenLine" size={14} />
+              <span>Перейти к упражнению: <span className="font-medium">{exercise.title}</span></span>
+              <Icon name="ChevronRight" size={14} className="ml-auto" />
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Exercise tab */}
+      {activeTab === "exercise" && exercise && (
+        <div className="p-6 space-y-5 animate-fade-in">
+          <div className="flex items-center gap-3">
+            <span className={`text-xs px-2 py-0.5 border font-sans ${DIFFICULTY_STYLE[exercise.difficulty]}`}>
+              {exercise.difficulty}
+            </span>
+            <span className="text-sm font-serif">{exercise.title}</span>
+          </div>
+
+          <div className="bg-muted/50 border border-border p-4 text-sm font-sans leading-relaxed">
+            {exercise.task}
+          </div>
+
+          <div className="bg-muted/40 border border-border h-40 flex items-center justify-center">
+            {Diagram && <Diagram />}
+          </div>
+
+          <div>
+            <p className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-widest mb-3">Решение по шагам</p>
+            <div className="space-y-2 mb-4">
+              {exercise.steps.slice(0, step + 1).map((s, i) => (
+                <div key={i} className="flex items-center gap-4 p-3 border border-border bg-muted/30 animate-fade-in">
+                  <span className="text-xs text-muted-foreground font-sans flex-shrink-0 w-40">{s.label}</span>
+                  <span className="font-mono text-sm font-medium">{s.eq}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              {!isLast ? (
+                <button
+                  onClick={() => setStep(s => s + 1)}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
+                >
+                  <Icon name="ChevronRight" size={14} />
+                  Следующий шаг
+                </button>
+              ) : !revealed ? (
+                <button
+                  onClick={() => setRevealed(true)}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-foreground text-background text-sm font-sans hover:opacity-80 transition-opacity"
+                >
+                  <Icon name="Check" size={14} />
+                  Показать ответ
+                </button>
+              ) : null}
+              {step > 0 && (
+                <button
+                  onClick={() => { setStep(0); setRevealed(false); }}
+                  className="px-4 py-2 border border-border text-sm font-sans hover:bg-muted transition-colors"
+                >
+                  Сначала
+                </button>
+              )}
+            </div>
+            {revealed && (
+              <div className="mt-4 p-4 border-2 border-foreground animate-fade-in">
+                <p className="text-xs text-muted-foreground font-sans mb-1">Ответ:</p>
+                <p className="font-mono text-2xl font-medium">{exercise.answer}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }
