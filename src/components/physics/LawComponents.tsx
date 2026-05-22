@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-import { LAWS, EXERCISES, DIAGRAMS, CATEGORY_STYLE, type Law } from "@/data/physicsData";
+import { LAWS, EXERCISES, DIAGRAMS, CATEGORY_STYLE, type Law } from "@/data/physicsData.tsx";
 
 export function LawCard({ law, onClick }: { law: Law; onClick: () => void }) {
   return (

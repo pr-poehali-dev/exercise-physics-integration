@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LAWS, EXERCISES, type Law, type Exercise } from "@/data/physicsData";
+import { LAWS, EXERCISES, type Law, type Exercise } from "@/data/physicsData.tsx";
 import Modal from "@/components/physics/Modal";
 import { LawCard, LawModalContent } from "@/components/physics/LawComponents";
 import { ExCard, ExModalContent } from "@/components/physics/ExerciseComponents";

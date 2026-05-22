@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
-import { LAWS, DIAGRAMS, CATEGORY_STYLE, type Exercise } from "@/data/physicsData";
+import { LAWS, DIAGRAMS, CATEGORY_STYLE, type Exercise } from "@/data/physicsData.tsx";
 
 export function ExCard({ ex, onClick }: { ex: Exercise; onClick: () => void }) {
   const law = LAWS.find(l => l.id === ex.lawId);

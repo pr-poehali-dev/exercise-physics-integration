@@ -345,7 +345,7 @@ function GaylusacSvg() {
       <text x="50" y="74" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">T₁</text>
       <rect x="140" y="50" width="40" height="90" rx="2" fill="#b45309" fillOpacity="0.1" stroke="#b45309" strokeWidth="1.5" />
       <text x="160" y="100" textAnchor="middle" fontSize="10" fill="#b45309" fontFamily="IBM Plex Mono, monospace">V₂</text>
-      <text x="160" y="44" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">T₂ &gt; T₁</text>
+      <text x="160" y="44" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">{"T₂ > T₁"}</text>
       <line x1="75" y1="95" x2="135" y2="95" stroke="#b45309" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#arrowAmb)" />
       <text x="105" y="88" textAnchor="middle" fontSize="9" fill="#b45309" fontFamily="IBM Plex Mono, monospace">нагрев</text>
       <text x="240" y="90" textAnchor="middle" fontSize="12" fill="#b45309" fontFamily="IBM Plex Mono, monospace">V/T =</text>
